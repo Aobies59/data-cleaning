@@ -1,7 +1,6 @@
 import math
 import pandas as pd
 import numpy as np
-from scipy.spatial import cKDTree
 from random import randint
 
 from pandas.util.version import Infinity
