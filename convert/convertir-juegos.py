@@ -8,7 +8,7 @@ def main():
     reader = csv.DictReader(csvFile)
     for row in reader:
         del row[""]
-        del row["CODIGO_INTERNO"]
+        del row["AreaID"]
 
         row["id"] = row["ID"]
         del row["ID"]
