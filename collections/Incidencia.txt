@@ -1,0 +1,42 @@
+db.createCollection("Incidencia", {
+   validator: {
+      $jsonSchema: {
+         bsonType: "object",
+         title: "Incidencia Object validator",
+         required: ["id", "tipoIncidencia", "fechaReporte", "estado", "tiempoResolucion", "nivelEscalamiento", "usuario"],
+         properties: {
+            id: {
+               bsonType: "string",
+               description: "id es un string de caracter único y es requerido"
+            },
+            tipoIncidencia: {
+               bsonType: "string",
+               enum: ["Desgaste", "Rotura", "Vandalismo", "Mal funcionamineto"], 
+               description: "tipoIncidencia es de tipo Enum y es requerido"
+            },
+            fechaReporte: {
+               bsonType: "date",
+               description: "fecha Report es de tipo Date y es requerido"
+            },
+            estado: {
+               bsonType: "string",
+               enum: ["Abierta", "Cerrada"], 
+               description: "estado es de tipo Enum y es requerido"
+            },
+            tiempoResolucion: {
+               bsonType: "double",
+               description: "tiempoResolucion es un double y es requerido"
+            },
+            "nivelEscalamiento": {
+               "bsonType": "string",
+               "enum": ["Alto", "Medio", "Bajo"],
+               "description": "El nivel de escalamiento debe ser 'Alta', 'Media' o 'Baja'"
+	    },
+            "Usuario": {
+               "bsonType": "array",           
+               "description": "array obligatorio con nobmre de usuario, email y telefono"
+             }     
+         }
+      }
+   }
+});

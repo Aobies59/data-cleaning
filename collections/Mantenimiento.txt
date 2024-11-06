@@ -1,0 +1,41 @@
+db.createCollection("Mantenimiento", {
+   validator: {
+      $jsonSchema: {
+         "bsonType": "object",
+         "required": ["id", "fechaIntervención", "tipoIntervención", "estadoPrevio", "estadoPosterior", "JuegoID"],
+         "properties": {
+            "ID": {
+               "bsonType": "string",
+               "description": "Debe ser una cadena que identifique el mantenimiento"
+            },
+            "FECHA_INTERVENCION": {
+               "bsonType": "date",
+               "description": "Debe ser una fecha válida en formato ISO (YYYY-MM-DD)"
+            },
+            "TIPO_INTERVENCION": {
+               "bsonType": "string",
+               "enum": ["Correctivo", "Preventivo","Emergencia"],
+               "description": "Debe ser 'Energencia','Correctivo' o 'Preventivo'"
+            },
+            "ESTADO_PREVIO": {
+               "bsonType": "string",
+               "enum": ["Malo", "Bueno", "Regular"],
+               "description": "Debe ser un estado válido del juego antes del mantenimiento"
+            },
+            "ESTADO_POSTERIOR": {
+               "bsonType": "string",
+               "enum": ["Malo", "Bueno", "Regular"],
+               "description": "Debe ser un estado válido del juego después del mantenimiento"
+            },
+            "JuegoID": {
+               "bsonType": "string",
+               "description": "Debe ser un identificador entero del juego"
+            },
+            "Comentarios": {
+               "bsonType": "string",
+               "description": "Comentarios opcionales sobre el mantenimiento"
+            }
+         }
+      }
+   }
+});
