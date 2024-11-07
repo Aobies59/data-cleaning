@@ -2,7 +2,7 @@ import csv
 import json
 
 csvfile = open("./datasets/AreasLimpio.csv")
-jsonfile = open("./datasets/AreasLimpio.json", "w")
+jsonfile = open("./datasets/Areas.json", "w")
 
 reader = csv.DictReader(csvfile)
 for row in reader:
@@ -37,7 +37,7 @@ for row in reader:
     # Ponemos las coordenadasen una lista y transformamos los strings en floats
     coordenadasArray = row["coordenadasGPS"][1:-1].split(", ")
     row["coordenadasGPS"] = [float(coordenadasArray[0]), float(coordenadasArray[1])]
-    
+
     # Escribimos todo en el json
     json.dump(row, jsonfile, ensure_ascii=False)
     jsonfile.write("\n")
