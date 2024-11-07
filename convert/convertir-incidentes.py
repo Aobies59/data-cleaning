@@ -3,7 +3,7 @@ import json
 
 
 csvfile = open("./datasets/IncidentesSeguridadLimpio.csv")
-jsonfile = open("./datasets/IncidentesSeguridadLimpio.json", "w")
+jsonfile = open("./datasets/IncidentesSeguridad.json", "w")
 
 reader = csv.DictReader(csvfile)
 for row in reader:
