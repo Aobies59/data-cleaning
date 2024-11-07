@@ -1,7 +1,7 @@
 python3 clean/limpiar-incidenciasUsuarios.py
 python3 convert/convertir-incidenciasUsuarios.py
 mongoimport --host localhost --db=practica_1-2 --collection=IncidenciaTemp datasets/IncidenciasUsuarios.json
-mongosh < EOF
+mongosh << EOF
 use practica_1-2
 db.Incidencia.drop()
 db.createCollection("Incidencia", { validator: { $jsonSchema: { bsonType: "object", title: "Incidencia Object validator", required: ["id", "tipoIncidencia", "fechaReporte", "estado", "tiempoResolucion", "nivelEscalamiento", "Usuario"], properties: { id: { bsonType: "string", description: "id es un string de caracter único y es requerido" }, tipoIncidencia: { bsonType: "string", enum: ["Desgaste", "Rotura", "Vandalismo", "Mal funcionamiento"], description: "tipoIncidencia es de tipo Enum y es requerido" }, fechaReporte: { bsonType: "date", description: "fechaReporte es de tipo Date y es requerido" }, estado: { bsonType: "string", enum: ["Abierta", "Cerrada"], description: "estado es de tipo Enum y es requerido" }, tiempoResolucion: { bsonType: "double", description: "tiempoResolucion es un double y es requerido" }, nivelEscalamiento: { bsonType: "string", enum: ["Alto", "Medio", "Bajo"], description: "El nivel de escalamiento debe ser 'Alto', 'Medio' o 'Bajo'" }, Usuario: { title: "Usuario", bsonType: "array", description: "array obligatorio con nombre de usuario, email y telefono", items: { bsonType: "object", required: ["nombre", "email", "telefono"], properties: { nombre: { bsonType: "string", description: "Nombre del usuario" }, email: { bsonType: "string", description: "Email del usuario en formato válido" }, telefono: { bsonType: "string", description: "Número de teléfono del usuario, puede incluir código de país" } } } } } } } });
