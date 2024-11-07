@@ -1,5 +1,5 @@
 python3 clean/limpiar-mantenimiento.py
-python3 convertir/convertir-mantenimiento.py
+python3 convert/convertir-mantenimiento.py
 mongoimport --host localhost --db=practica_1-2 --collection=MantenimientoTemp datasets/Mantenimiento.json
 mongosh << EOF
 use practica_1-2;
