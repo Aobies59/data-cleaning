@@ -1,5 +1,5 @@
 python3 clean/limpiar-incidentes.py
-python3 convert/limpiar-incidentes.py
+python3 convert/convertir-incidentes.py
 mongoimport --db=practica_1-2 --collection=IncidenteSeguridadTemp datasets/IncidentesSeguridad.json
 mongosh << EOF
 use practica_1-2
