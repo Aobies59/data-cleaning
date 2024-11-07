@@ -1,17 +1,13 @@
 #!/bin/bash
 
-# Run Python Scripts
 python3 clean/limpiar-areas.py || { echo "Python script limpiar-areas.py failed"; exit 1; }
 python3 convert/convertir-areas.py || { echo "Python script convertir-areas.py failed"; exit 1; }
 
-# MongoDB Import
 mongoimport --db=practica_1-2 --collection=AreaRecreativaTemp datasets/Areas.json || { echo "mongoimport failed"; exit 1; }
 
-# MongoDB Shell Script
 mongosh << EOF
 use practica_1-2;
 
-# Drop existing collection and create a new one with validation
 db.AreaRecreativa.drop();
 db.createCollection("AreaRecreativa", {
   validator: {
@@ -37,10 +33,8 @@ db.createCollection("AreaRecreativa", {
   }
 });
 
-# Create unique index on nombre
 db.AreaRecreativa.createIndex({nombre: 1}, {unique: true});
 
-# Process the data from AreaRecreativaTemp to AreaRecreativa
 db.AreaRecreativaTemp.aggregate([
   { \$addFields: { 
     fechaInstalacion: { \$dateFromString: { dateString: "\$fechaInstalacion", format: "%d-%m-%Y" } }, 
@@ -61,9 +55,6 @@ db.AreaRecreativaTemp.aggregate([
   { \$merge: { into: "AreaRecreativa" } }
 ]);
 
-# Drop the temporary collection
 db.AreaRecreativaTemp.drop();
 
 EOF
-
-# End of script
