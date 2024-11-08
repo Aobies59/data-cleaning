@@ -1,0 +1,70 @@
+db.createCollection("Incidencia", {
+  validator: {
+    $jsonSchema: {
+      bsonType: "object",
+      title: "Incidencia Object validator",
+      required: [
+        "id",
+        "tipoIncidencia",
+        "fechaReporte",
+        "estado",
+        "tiempoResolucion",
+        "nivelEscalamiento",
+        "Usuario"
+      ],
+      properties: {
+        id: {
+          bsonType: "string",
+          description: "ID único de la incidencia; es requerido y debe ser un string."
+        },
+        tipoIncidencia: {
+          bsonType: "string",
+          enum: ["Desgaste", "Rotura", "Vandalismo", "Mal funcionamiento"],
+          description: "Tipo de incidencia; es de tipo Enum y es requerido."
+        },
+        fechaReporte: {
+          bsonType: "date",
+          description: "Fecha en que se reportó la incidencia; es requerido y debe ser de tipo Date."
+        },
+        estado: {
+          bsonType: "string",
+          enum: ["Abierta", "Cerrada"],
+          description: "Estado actual de la incidencia; es de tipo Enum y es requerido."
+        },
+        tiempoResolucion: {
+          bsonType: "double",
+          description: "Tiempo de resolución en horas; es requerido y debe ser de tipo double."
+        },
+        nivelEscalamiento: {
+          bsonType: "string",
+          enum: ["Alto", "Medio", "Bajo"],
+          description: "Nivel de escalamiento de la incidencia; debe ser 'Alto', 'Medio' o 'Bajo'."
+        },
+        Usuario: {
+          title: "Usuario",
+          bsonType: "array",
+          description: "Array obligatorio con detalles del usuario: nombre, email, y teléfono.",
+          items: {
+            bsonType: "object",
+            required: ["nombre", "email", "telefono"],
+            properties: {
+              nombre: {
+                bsonType: "string",
+                description: "Nombre del usuario."
+              },
+              email: {
+                bsonType: "string",
+                description: "Email del usuario en formato válido."
+              },
+              telefono: {
+                bsonType: "string",
+                description: "Número de teléfono del usuario, que puede incluir código de país."
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+});
+db.Incidencia.createIndex({id: 1}, {unique: true});
